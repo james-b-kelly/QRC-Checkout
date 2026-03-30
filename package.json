@@ -1,0 +1,16 @@
+{
+  "name": "qrc-checkout",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "stripe": "^17.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@vercel/node": "^5.1.8",
+    "typescript": "^5.9.3"
+  }
+}
