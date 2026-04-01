@@ -37,6 +37,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id)
+        const isOurs = lineItems.data.some((item) => item.price?.id === process.env.STRIPE_PRICE_ID)
+        if (!isOurs) {
+          console.log(`Ignoring event for other project: ${session.id}`)
+          break
+        }
         console.log(`Payment succeeded: ${session.id} — ${session.amount_total}`)
         break
       }
